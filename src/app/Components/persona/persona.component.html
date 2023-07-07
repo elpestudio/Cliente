@@ -1,0 +1,153 @@
+<div class="container">
+     
+
+    <div class="row">        
+        <div class="col-12">
+            <div class="card mt-4 shadow rounded-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="title-content">Personas</h5>
+                            <span class="bradgrounds">
+                                <a href="/">Dashboard</a>
+                                <a href="#">Personas</a>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-4 mt-4">
+                            <input type="search" class="form-control buscador shadow" placeholder="Buscar...">
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center justify-content-end">
+                            <div class="group-buttons">
+                                <span class="btn-actions shadow" (click)="mostrarModal()"><i class="las la-plus"></i> Nuevo</span>
+                                <span class="btn-actions edit shadow" (click)="editModal()"><i class="las la-edit"></i></span>
+                                <span class="btn-actions delete shadow" (click)="deleteitem()"><i class="las la-trash"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- secccion de notificacion -->   
+        <div class="col-12 mb-0" *ngIf="toogleToast">
+            <div [class]="toastCss">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message }}
+              </div>
+        </div>
+
+        <div class="col-12 col-md-12">
+            <div class="card mt-4 shadow rounded-card">
+                <div class="card-body">
+                    <table class="table table-hover table-styles">
+                        <thead>
+                            <tr>
+                                <th class="th-head">Tipo Persona</th>
+                                <th class="th-head">Nombres Apellidos</th>
+                                <th class="th-head">Correo Electronico</th>
+                                <th class="th-head">Matricula</th>
+                                <th class="th-head">Usuario</th>
+                                <th class="th-head">Institucion</th>
+                                <th class="th-head">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let persona of personas" attr.data-item="{{persona.id}}" (click)="editItem(persona)">
+                                <td class="td-body"><span class="badge bg-info">{{ persona.tipopersona_id.tipo }}</span></td>
+                                <td class="td-body">{{ persona.nombresApellidos }}</td>
+                                <td class="td-body">{{ persona.correo }}</td>
+                                <td class="td-body"><span class="badge bg-primary">{{ persona.matricula }}</span></td>
+                                <td class="td-body">{{ persona.usuario }}</td>
+                                <td class="td-body"><span class="badge bg-secondary">{{ persona.institucion_id.ruc }} - {{ persona.institucion_id.nombre }}</span></td>
+                                <td class="td-body"><span class="badge bg-success">{{ persona.estado }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- secction modals -->
+<div class="modal fade show" tabindex="-1" aria-hidden="true" id="modalForm" *ngIf="toogleModal" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{{ titleModal }}</h5>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+            </button> -->
+        </div>
+        <form #f="ngForm" (ngSubmit)="sendForm()" autocomplete="off">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="tipopersona" class="label-form">Tipo Persona</label>
+                                <select class="form-control text-muted" name="tipopersona" id="tipopersona" [(ngModel)]="tipoPersonaFm">
+                                <option value="0">-- Seleccione --</option>
+                                <option [value]="tipopersona.id" *ngFor="let tipopersona of tipoPersonas" >{{ tipopersona.tipo}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="form-group">
+                            <label for="nombresApellidos" class="label-form">Nombres Apellidos</label>
+                            <input type="text" class="form-control" name="nombresApellidos" id="nombresApellidos" [(ngModel)]="nombresApellidosFm">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="form-group">
+                            <label for="correo" class="label-form">Correo Electronico</label>
+                            <input type="email" class="form-control" name="correo" id="correo" [(ngModel)]="correoFm">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="matricula" class="label-form">Matricula</label>
+                            <input type="text" class="form-control" name="matricula" id="matricula" [(ngModel)]="matriculaFm">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="usuario" class="label-form">Usuario</label>
+                            <input type="text" class="form-control" name="usuario" id="usuario" [(ngModel)]="usuarioFm">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="form-group">
+                            <label for="institucion" class="label-form">Institucion</label>
+                            <select class="form-control text-muted" name="institucion" id="institucion" [(ngModel)]="institucionFm">
+                                <option value="0">-- Seleccione --</option>
+                                <option [value]="institucion.id" *ngFor="let institucion of instituciones" >{{ institucion.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="estado" class="label-form">Estado</label>
+                            <select class="form-control text-muted" name="estado" id="estado" [(ngModel)]="estadoFm">
+                                <option value="Activo" selected>Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">{{ actionButton }}</button>
+                <button type="button" class="btn btn-danger" (click)="closeModal()" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+

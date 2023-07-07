@@ -1,0 +1,109 @@
+.th-head {
+  font-size: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  color: gray;
+}
+
+.td-body {
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--bs-white);
+}
+
+.rounded-card {
+  border-radius: 15px;
+}
+
+.bradgrounds {
+  display: flex;
+  gap: 0 4px;
+  line-height: 0.4em;
+
+  & > a {
+    text-decoration: none;
+    color: gray;
+    text-transform: uppercase;
+    font-size: 12px;
+
+    &::after {
+      content: " / ";
+    }
+
+    &:last-child::after {
+      content: "";
+    }
+  }
+}
+
+.title-content {
+  text-transform: uppercase;
+  color: var(--bs-white);
+  font-weight: 300;
+}
+
+.buscador {
+  color: gray;
+  text-transform: capitalize;
+  border-radius: 8px;
+}
+
+.group-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0 5px;
+
+  & .btn-actions {
+    padding: 8px 12px;
+    background-color: var(--bs-body-bg);
+    border-radius: 10px;
+    color: gray;
+    cursor: pointer;
+    transition: all 500ms;
+
+    & > i {
+      font-size: 20px;
+    }
+
+    &:hover {
+      background-color: var(--bs-success);
+      font-weight: 400;
+      color: var(--bs-white);
+    }
+  }
+}
+
+.edit {
+  &:hover {
+    background-color: var(--bs-info) !important;
+  }
+}
+
+.delete {
+  &:hover {
+    background-color: var(--bs-danger) !important;
+  }
+}
+
+.label-form {
+  font-size: 13px;
+  color: gray;
+  padding: 5px 0;
+}
+
+.form-control {
+  font-size: 14px;
+  color: gray;
+}
+
+.toast-container {
+  position: fixed !important;
+  right: 20px !important;
+  top: 20px !important;
+}
+
+.toast:not(.showing):not(.show) {
+  display: none !important;
+}
